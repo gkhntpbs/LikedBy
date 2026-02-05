@@ -1,0 +1,51 @@
+{
+    "manifest_version": 3,
+    "name": "LikedBy",
+    "version": "1.0",
+    "description": "Track and share your liked YouTube videos",
+    "icons": {
+        "16": "assets/icons/likedby-16.png",
+        "32": "assets/icons/likedby-32.png",
+        "48": "assets/icons/likedby-48.png",
+        "128": "assets/icons/likedby-128.png"
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "downloads"
+    ],
+    "host_permissions": [
+        "*://*.youtube.com/*",
+        "https://firestore.googleapis.com/*",
+        "https://www.googleapis.com/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.youtube.com/*"
+            ],
+            "js": [
+                "content/utils.js",
+                "content/ui.js",
+                "content/core.js"
+            ],
+            "run_at": "document_end",
+            "all_frames": true
+        }
+    ],
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "16": "assets/icons/likedby-16.png",
+            "32": "assets/icons/likedby-32.png",
+            "48": "assets/icons/likedby-48.png",
+            "128": "assets/icons/likedby-128.png"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
+    }
+}

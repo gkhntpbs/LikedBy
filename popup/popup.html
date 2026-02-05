@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LikedBy</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css"
+    />
+  </head>
+  <body>
+    <div id="auth-container">
+      <div class="welcome-container">
+        <div class="brand">
+          <img
+            src="../assets/likedby-logo.png"
+            alt="LikedBy"
+            class="brand-logo"
+          />
+          <h1>LikedBy</h1>
+        </div>
+        <p class="subtitle">Sign in or create an account to continue.</p>
+
+        <div class="language-picker">
+          <label for="language-select" id="language-select-label"
+            >Language</label
+          >
+          <select id="language-select"></select>
+        </div>
+
+        <div class="tabs">
+          <button id="tab-login" class="tab active">Login</button>
+          <button id="tab-register" class="tab">Register</button>
+        </div>
+
+        <div id="auth-forms">
+          <div id="login-form" class="form active">
+            <input
+              type="text"
+              id="login-username"
+              placeholder="Username"
+              maxlength="30"
+              autocapitalize="none"
+              spellcheck="false"
+            />
+            <input
+              type="password"
+              id="login-pin"
+              placeholder="4-digit PIN"
+              maxlength="4"
+              pattern="[0-9]{4}"
+              inputmode="numeric"
+            />
+            <button id="login-btn" class="primary-btn">
+              <i class="ti ti-login"></i> Login
+            </button>
+            <div id="login-error" class="error-msg"></div>
+          </div>
+
+          <div id="register-form" class="form">
+            <input
+              type="text"
+              id="reg-username"
+              placeholder="Choose a username"
+              maxlength="30"
+              autocapitalize="none"
+              spellcheck="false"
+            />
+            <input
+              type="password"
+              id="reg-pin"
+              placeholder="4-digit PIN"
+              maxlength="4"
+              pattern="[0-9]{4}"
+              inputmode="numeric"
+            />
+            <button id="register-btn" class="primary-btn">
+              <i class="ti ti-user-plus"></i> Create Account
+            </button>
+            <div id="register-error" class="error-msg"></div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <a href="#" id="developer-link" class="developer-link">
+          Developed by Gökhan Topbaş
+        </a>
+      </footer>
+    </div>
+
+    <div id="main-content" style="display: none">
+      <header>
+        <div class="title-group">
+          <div class="brand">
+            <img
+              src="../assets/likedby-logo.png"
+              alt="LikedBy"
+              class="brand-logo"
+            />
+            <h1>LikedBy</h1>
+          </div>
+          <button
+            id="open-profile-btn"
+            class="icon-btn ghost"
+            title="Open project"
+            type="button"
+          >
+            <i class="ti ti-external-link"></i>
+          </button>
+        </div>
+        <div class="header-controls">
+          <button
+            id="theme-toggle-btn"
+            class="icon-btn"
+            title="Toggle theme"
+            type="button"
+          >
+            <i class="ti ti-device-desktop"></i>
+          </button>
+          <button id="logout-btn" class="icon-btn" title="Logout" type="button">
+            <i class="ti ti-logout"></i>
+          </button>
+          <div class="user-badge" id="username-display">
+            <i class="ti ti-user"></i>
+            <span class="username-text"></span>
+            <button
+              id="delete-account-btn"
+              class="badge-delete-btn"
+              title="Delete account"
+              type="button"
+            >
+              <i class="ti ti-trash"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-wrapper">
+        <div class="sections-container">
+          <div class="collapsible-section" id="videos-section">
+            <button class="collapse-header" id="videos-header">
+              <span class="collapse-title">
+                <i class="ti ti-heart"></i>
+                <span id="videos-title-text">Your liked videos</span>
+                <span class="video-count" id="video-count">0</span>
+              </span>
+              <i class="ti ti-chevron-down collapse-icon"></i>
+            </button>
+            <div class="collapse-content" id="videos-content">
+              <div class="video-actions">
+                <button id="export-videos-btn" class="secondary-btn" type="button">
+                  Export JSON
+                </button>
+                <button id="import-videos-btn" class="secondary-btn" type="button">
+                  Import JSON
+                </button>
+                <input
+                  type="file"
+                  id="import-videos-input"
+                  accept="application/json"
+                  hidden
+                />
+              </div>
+              <div id="video-list" class="video-grid">
+                <div class="empty-state">Loading...</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="collapsible-section" id="friends-section">
+            <button class="collapse-header" id="friends-header">
+              <span class="collapse-title">
+                <i class="ti ti-users"></i>
+                <span id="friends-title-text">Friends</span>
+                <span class="friend-count" id="friend-count">0</span>
+              </span>
+              <i class="ti ti-chevron-down collapse-icon"></i>
+            </button>
+            <div class="collapse-content" id="friends-content">
+              <div class="add-friend-container">
+                <input
+                  type="text"
+                  id="friend-username"
+                  placeholder="Friend's username"
+                  maxlength="30"
+                  autocapitalize="none"
+                  spellcheck="false"
+                />
+                <button id="add-friend">
+                  <i class="ti ti-user-plus"></i>
+                  <span id="add-friend-label">Add</span>
+                </button>
+              </div>
+              <ul id="friends-list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <a href="#" class="developer-link">Developed by Gökhan Topbaş</a>
+      </footer>
+    </div>
+
+    <script src="constants.js"></script>
+    <script src="i18n.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

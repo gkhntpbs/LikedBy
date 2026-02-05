@@ -1,0 +1,12 @@
+.env
+.DS_Store
+.idea/
+.vscode/
+*.log
+*.tmp
+*.temp
+*.swp
+*~
+backups/
+*.zip
+AGENTS.md
